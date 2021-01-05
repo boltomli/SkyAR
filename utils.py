@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-from skimage.measure import compare_ssim as sk_cpt_ssim
+from skimage import measure
 
 import os
 import glob
@@ -264,7 +264,7 @@ def cpt_rgb_ssim(img, img_gt):
     for i in range(3):
         tmp = img[:, :, i]
         tmp_gt = img_gt[:, :, i]
-        ssim = sk_cpt_ssim(tmp, tmp_gt)
+        ssim = measure.compare_ssim(tmp, tmp_gt)
         SSIM = SSIM + ssim
     return SSIM / 3.0
 
@@ -272,5 +272,5 @@ def cpt_rgb_ssim(img, img_gt):
 def cpt_ssim(img, img_gt):
     img = clip_01(img)
     img_gt = clip_01(img_gt)
-    return sk_cpt_ssim(img, img_gt)
+    return measure.compare_ssim(img, img_gt)
 
